@@ -37,12 +37,11 @@
 
 
                     //ARMANDO MENSAJE
-                    $mensaje = "Estimado $fila->destinatario:
-                    Se envian los datos registrados,
+                    $mensaje = "Estimado $fila->destinatario:   Se envian los datos registrados,
                     Alta:   $fila->alta     con %$alta
                     Porta:  $fila->porta    con %$porta
                     Reno:   $fila->reno     con %$reno
-                    
+
                     Saludos";
 
 

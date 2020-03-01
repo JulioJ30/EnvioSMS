@@ -2,9 +2,10 @@
 
 class envioSMS{
 
+    //CODIGO PARA ENVIAR MENSAJES
     private $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTU4Mjk5MDM2OCwiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjc3OTA3LCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.R3heoJIDSBDkfCe_KTVordGSokD7hUGWz9Y0QE4dB_0';	//<<< COMPLETE ESTE VALOR
 
-
+    //CODIGO DE CELULAR
     private $device_id = 115818; 
 
     public function EnviarMensaje($numero, $mensaje){

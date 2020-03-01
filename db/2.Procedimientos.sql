@@ -13,5 +13,10 @@ as
 	select alta,early_alta,porta,early_porta,reno,early_reno,destinatario,linea_dest from consolidado_early where cod_registro = @i_cod_registro;
 go
 
-exec spu_getdatos_consolidado_early 'E001'
+exec spu_getdatos_consolidado_early 'E002'
 go
+
+select * from consolidado_early
+update consolidado_early set
+destinatario = 'Dennis Ramos'
+where destinatario = 'Julio Amoretti Mendoza'
