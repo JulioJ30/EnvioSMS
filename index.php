@@ -3,12 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Envio Mensajes</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" >
 </head>
 <body>
 
 
+<div class="container p-5">
+
+
+        <div class="card">
+            <div class="card-header text-center">
+                <h3>Envio Mensajes</h3>
+            </div>
+
+            <div class="card-body">
+                <form action="" class="row" id="frmMensaje">
+
+                    <div class="col-xl-6 form-group">
+                        <label for="">Cod. Registro</label>
+                        
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="txtCodigoRegistro" autofocus="on" >
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="btnBuscar" style="cursor:pointer">Buscar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 form-group">
+                        <label for="">Destinatarios</label>
+                        <input type="text" class="form-control" readonly id="txtDestinatarios" >
+                    </div>
+
+                    <!-- FILA 1 -->
+                    <div class="col-xl-6 form-group pl-5">
+                        <label for="">Alta</label>
+                        <input type="text" class="form-control" id="txtalta">
+                    </div>
+
+                    <div class="col-xl-6 form-group pr-5">
+                        <label for="">% Early Alta</label>
+                        <input type="text" class="form-control" id="txtearlyalta" >
+                    </div>
+
+                    <!-- FILA 2 -->
+                    <div class="col-xl-6 form-group pl-5">
+                        <label for="">Porta</label>
+                        <input type="text" class="form-control" id="txtporta" >
+                    </div>
+
+                    <div class="col-xl-6 form-group pr-5">
+                        <label for="">% Early Porta</label>
+                        <input type="text" class="form-control" id="txtearlyporta">
+                    </div>
+
+                    <!-- FILA 3 -->
+                    <div class="col-xl-6 form-group pl-5">
+                        <label for="">Reno</label>
+                        <input type="text" class="form-control" id="txtreno">
+                    </div>
+
+                    <div class="col-xl-6 form-group pr-5">
+                        <label for="">%Early Reno</label>
+                        <input type="text" class="form-control" id="txtearlyreno">
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="card-footer">
+                <button class="btn btn-success float-right d-none" type="button" id="btnEnviarSms"> Enviar</button>
+            </div>
+
+        </div>
+
+
+</div>
+
+
+
+<!--
 <div class="section">
 
     <div class="row justify-content-center">
@@ -41,7 +116,7 @@
 
 </div>
 
-
+-->
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"  ></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"  ></script>
@@ -50,7 +125,7 @@
 <script>
 
     $(document).ready(function(){
-
+        /*
         function EnviarMensaje(){
             let numero = $("#numero").val();
             let mensaje = $("#mensaje").val();
@@ -81,9 +156,91 @@
         $("#enviar").click(function(){
             EnviarMensaje();
         });
+        */
 
+        $("#btnEnviarSms").click(function(){
+            $.ajax({
+                url:'controllers/consolidado_early.controller.php',
+                type:'get',
+                data:'operacion=enviar',
+                success:function(e){
+                    if(e != "error"){
+                        alert("Mensaje enviado al servidor correctamente, el mensaje llegara en breve");
+                        $("#frmMensaje")[0].reset();
+                        $("#txtCodigoRegistro").focus();
+                        //OCULTANDO BOTON
+                        $("#btnEnviarSms").addClass("d-none");
+
+                    }else{
+                        alert("Ocurrio un error :(");
+                    }
+                    //console.log(e);
+                }
+            })
+        });
+
+        $("#btnBuscar").click(function(){
+            BuscarDatos();
+        })
+
+        $("#txtCodigoRegistro").keypress(function(e){
+            if(e.keyCode == 13){
+                BuscarDatos();
+            }
+        })
 
     });
+
+
+    //FUNCIONES
+    function BuscarDatos(){
+
+        var codRegistro = $("#txtCodigoRegistro").val().trim();
+
+        if(codRegistro != ""){
+
+            $.ajax({
+
+                url:'controllers/consolidado_early.controller.php',
+                type:'get',
+                data:'operacion=getdatos&codigo='+codRegistro,
+                success:function(e){
+                    var js = JSON.parse(e);
+                    if(js.length > 0){
+
+                        var destinatarios = "";
+                        js.forEach((obj)=>{
+                            if(destinatarios == ""){
+                                
+                                $("#txtalta").val(obj.alta);
+                                $("#txtearlyalta").val( parseFloat(obj.early_alta) );
+                                $("#txtporta").val(obj.porta);
+                                $("#txtearlyporta").val(parseFloat(obj.early_porta));
+                                $("#txtreno").val(obj.reno);
+                                $("#txtearlyreno").val(parseFloat(obj.early_reno));
+
+                            }
+
+                            destinatarios += obj.destinatario  + " - " ;
+                        });
+
+                        $("#txtDestinatarios").val(destinatarios);
+                        //MOSTRANDO BOTON
+                        $("#btnEnviarSms").removeClass("d-none");
+                    }else{
+                        alert("No se encontraron datos con el Código seleccionado");
+                    }
+                }
+            });
+
+
+
+        }else{
+            alert("Por favor seleccione un Código de registro");
+            $("#txtCodigoRegistro").focus();
+        }
+
+    }
 
 
 </script>
