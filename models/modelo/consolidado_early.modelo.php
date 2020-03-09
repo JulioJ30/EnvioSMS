@@ -12,11 +12,11 @@
         }
 
 
-        function getDatos($codigo){
+        function getDatos($region){
 
-            $comando = $this->pdo->prepare("exec spu_getdatos_consolidado_early ?");
+            $comando = $this->pdo->prepare("exec spu_getdatos_consolidado_early2 ?");
             $comando->execute(
-                array($codigo)
+                array($region)
             );
 
             return $comando->fetchAll(PDO::FETCH_OBJ);

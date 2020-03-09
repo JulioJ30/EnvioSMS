@@ -11,7 +11,7 @@
 
         if($_GET["operacion"] == 'getdatos'){
 
-            $resultado = $objConsolidado->getDatos($_GET["codigo"]);
+            $resultado = $objConsolidado->getDatos($_GET["region"]);
 
             
             $_SESSION["destinatarios"] = $resultado;
@@ -30,22 +30,24 @@
                 //ENVIANDO MENSAJES
                 foreach($_SESSION["destinatarios"] as $fila){
 
-
+                    /*
                     $alta = floatval($fila->early_alta);
                     $porta = floatval($fila->early_porta);
-                    $reno = floatval($fila->early_reno);
+                    $reno = floatval($fila->early_reno);*/
 
 
                     //ARMANDO MENSAJE
-                    $mensaje = "Estimado $fila->destinatario:   Se envian los datos registrados,
-                    Alta:   $fila->alta     con %$alta
-                    Porta:  $fila->porta    con %$porta
-                    Reno:   $fila->reno     con %$reno
-
+                    $mensaje = "Estimado $fila->destinatario:   Se envia reporte de early al $fila->fecha_reg:
+                    Earlys:
+                    $fila->early
+                    $fila->operacion - $fila->region : $fila->valor_early
                     Saludos";
 
 
-                    $objMensaje->EnviarMensaje($fila->linea_dest,$mensaje);
+                    echo $mensaje."<br>";
+
+
+                    //$objMensaje->EnviarMensaje($fila->linea_dest,$mensaje);
 
                 }
             }else{

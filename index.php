@@ -24,10 +24,19 @@
                         <label for="">Cod. Registro</label>
                         
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="txtCodigoRegistro" autofocus="on" >
+                             <!-- <input type="text" class="form-control" id="txtCodigoRegistro" autofocus="on" > -->
+                            
+                            <select name="" id="cboRegion" class="custom-select">
+                                <option value="GENERAL">[SELECCIONE]</option>
+                                <option value="GENERAL">GENERAL</option>
+                                <option value="LIMA">LIMA</option>
+                                <option value="CENTRO">CENTRO</option>
+                                <option value="SUR">SUR</option>
+                                <option value="NORTE">NORTE</option>
+                            </select>
                             <div class="input-group-append">
                                 <span class="input-group-text" id="btnBuscar" style="cursor:pointer">Buscar</span>
-                            </div>
+                            </div> 
                         </div>
                     </div>
 
@@ -36,8 +45,8 @@
                         <input type="text" class="form-control" readonly id="txtDestinatarios" >
                     </div>
 
-                    <!-- FILA 1 -->
-                    <div class="col-xl-6 form-group pl-5">
+                   
+                    <!-- <div class="col-xl-6 form-group pl-5">
                         <label for="">Alta</label>
                         <input type="text" class="form-control" id="txtalta">
                     </div>
@@ -47,7 +56,7 @@
                         <input type="text" class="form-control" id="txtearlyalta" >
                     </div>
 
-                    <!-- FILA 2 -->
+                    
                     <div class="col-xl-6 form-group pl-5">
                         <label for="">Porta</label>
                         <input type="text" class="form-control" id="txtporta" >
@@ -58,7 +67,7 @@
                         <input type="text" class="form-control" id="txtearlyporta">
                     </div>
 
-                    <!-- FILA 3 -->
+                  
                     <div class="col-xl-6 form-group pl-5">
                         <label for="">Reno</label>
                         <input type="text" class="form-control" id="txtreno">
@@ -67,7 +76,7 @@
                     <div class="col-xl-6 form-group pr-5">
                         <label for="">%Early Reno</label>
                         <input type="text" class="form-control" id="txtearlyreno">
-                    </div>
+                    </div> -->
 
                 </form>
             </div>
@@ -195,7 +204,7 @@
     //FUNCIONES
     function BuscarDatos(){
 
-        var codRegistro = $("#txtCodigoRegistro").val().trim();
+        var codRegistro = $("#cboRegion").val();
 
         if(codRegistro != ""){
 
@@ -203,24 +212,14 @@
 
                 url:'controllers/consolidado_early.controller.php',
                 type:'get',
-                data:'operacion=getdatos&codigo='+codRegistro,
+                data:'operacion=getdatos&region='+codRegistro,
                 success:function(e){
                     var js = JSON.parse(e);
+                    console.log(js);
                     if(js.length > 0){
 
                         var destinatarios = "";
                         js.forEach((obj)=>{
-                            if(destinatarios == ""){
-                                
-                                $("#txtalta").val(obj.alta);
-                                $("#txtearlyalta").val( parseFloat(obj.early_alta) );
-                                $("#txtporta").val(obj.porta);
-                                $("#txtearlyporta").val(parseFloat(obj.early_porta));
-                                $("#txtreno").val(obj.reno);
-                                $("#txtearlyreno").val(parseFloat(obj.early_reno));
-
-                            }
-
                             destinatarios += obj.destinatario  + " - " ;
                         });
 
@@ -236,8 +235,8 @@
 
 
         }else{
-            alert("Por favor seleccione un Código de registro");
-            $("#txtCodigoRegistro").focus();
+            alert("Por favor seleccione una región");
+            //$("#txtCodigoRegistro").focus();
         }
 
     }
