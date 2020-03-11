@@ -23,6 +23,18 @@
 
         }
 
+        //EARLYS POR OPERACION
+        function getDatosOperacion($early,$destinatario){
+
+            $comando = $this->pdo->prepare("exec spu_getdatosop_consolidado_early2 ?,?");
+            $comando->execute(
+                array($early,$destinatario)
+            );
+
+            return $comando->fetchAll(PDO::FETCH_OBJ);
+
+        }
+
     }
 
 

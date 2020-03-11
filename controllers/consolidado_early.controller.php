@@ -30,22 +30,28 @@
                 //ENVIANDO MENSAJES
                 foreach($_SESSION["destinatarios"] as $fila){
 
-                    /*
-                    $alta = floatval($fila->early_alta);
-                    $porta = floatval($fila->early_porta);
-                    $reno = floatval($fila->early_reno);*/
-
 
                     //ARMANDO MENSAJE
                     $mensaje = "Estimado $fila->destinatario:   Se envia reporte de early al $fila->fecha_reg:
-                    Earlys:
-                    $fila->early
-                    $fila->operacion - $fila->region : $fila->valor_early
-                    Saludos";
+                    Earlys:\n";
+                    
+                    $array = explode(',',$fila->early);
 
 
-                    echo $mensaje."<br>";
+                    //echo $fila->early;
 
+                    for($i = 0;$i < count($array);$i++){
+                        $mensaje .= $array[$i]."\n";
+
+                        $objeto = $objConsolidado->getDatosOperacion($array[$i],$fila->destinatario);
+                        //var_dump($objeto);
+                        foreach($objeto as $fila2 ){
+                            $mensaje .= $fila2->valor."\n";
+                        }
+
+                    }
+                    
+                    $mensaje .= "REGION: " . $fila->region;
 
                     //$objMensaje->EnviarMensaje($fila->linea_dest,$mensaje);
 
