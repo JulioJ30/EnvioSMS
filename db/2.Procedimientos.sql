@@ -18,7 +18,7 @@ go
 
 -- PROCEDIMIENTO 2
 
-create procedure spu_getdatos_consolidado_early2	
+alter procedure spu_getdatos_consolidado_early2	
 	@i_region		nvarchar(255)
 as
 	select 

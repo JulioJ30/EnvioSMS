@@ -57,15 +57,25 @@ delete from consolidado_early2
 go
 
 insert into consolidado_early2 values
-('E000',getdate(),'ALTA','GENERAL','E30','13.4','Dennis','942454632'),
-('E000',getdate(),'PORTA','GENERAL','E30','12.4','JORGE','942454632'),
-('E000',getdate(),'RENO','GENERAL','E30','10.6','GIANMARCO','942454632'),
-('E000',getdate(),'ALTA','GENERAL','E60','8.6','Dennis','942454632'),
-('E000',getdate(),'PORTA','GENERAL','E60','7.3','JORGE','942454632'),
-('E000',getdate(),'RENO','GENERAL','E60','5.4','GIANMARCO','942454632'),
-('E000',getdate(),'ALTA','GENERAL','E90','9.3','Dennis','942454632'),
-('E000',getdate(),'PORTA','GENERAL','E90','2.3','JORGE','942454632'),
-('E000',getdate(),'RENO','GENERAL','E90','6.5','GIANMARCO','942454632')
-go
+-- DENNIS
+('E000',getdate(),'ALTA','GENERAL','E30','10','DENNIS','942445632'),
+('E000',getdate(),'PORTA','GENERAL','E30','11','DENNIS','942445632'),
+('E000',getdate(),'RENO','GENERAL','E30','12','DENNIS','942445632'),
 
+('E000',getdate(),'ALTA','GENERAL','E60','13','DENNIS','942445632'),
+('E000',getdate(),'PORTA','GENERAL','E60','14','DENNIS','942445632'),
+
+('E000',getdate(),'ALTA','GENERAL','E90','15','DENNIS','942445632'),
+
+-- JULIO 
+('E000',getdate(),'ALTA','GENERAL','E30','16','JULIO','933946745'),
+('E000',getdate(),'PORTA','GENERAL','E30','17','JULIO','933946745'),
+('E000',getdate(),'RENO','GENERAL','E30','18','JULIO','933946745'),
+
+('E000',getdate(),'RENO','GENERAL','E60','19','JULIO','933946745'),
+('E000',getdate(),'PORTA','GENERAL','E60','20','JULIO','933946745'),
+
+('E000',getdate(),'PORTA','GENERAL','E90','21','JULIO','933946745')
+
+go
 
